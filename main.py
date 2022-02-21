@@ -35,20 +35,6 @@ def this_week() -> str:
     return f"Week: {week_start.strftime('%d %B, %Y')} - {week_end.strftime('%d %B, %Y')}"
 
 
-def make_graph(percent: float, ip_blocks: str, length: int = GRAPH_LENGTH) -> str:
-    '''Make progress graph from API graph'''
-    # already addressed in main
-    # if len(ip_blocks) < 2:
-    #     raise "The ip_blocks need to have at least two characters."
-    divs = len(ip_blocks) - 1
-    graph = ip_blocks[-1] * int(percent / 100 * length + 0.5 / divs)
-    remainder_block = int((percent / 100 * length - len(graph)) * divs + 0.5)
-    if remainder_block > 0:
-        graph += ip_blocks[remainder_block]
-    graph += ip_blocks[0] * (length - len(graph))
-    return graph
-
-
 def get_stats() -> str:
     '''Gets API data and returns markdown progress'''
     encoded_key: str = str(base64.b64encode(waka_key.encode('utf-8')), 'utf-8')
@@ -64,44 +50,24 @@ def get_stats() -> str:
         print("Please Add your WakaTime API Key to the Repository Secrets")
         sys.exit(1)
 
-    if show_time == 'true':
-        print("Will show time on graph")
-        ln_graph = GRAPH_LENGTH
-    else:
-        print("Hide time on graph")
-        ln_graph = GRAPH_LENGTH + TEXT_LENGTH
-
     data_list = []
-    try:
-        pad = len(max([l['name'] for l in lang_data[:5]], key=len))
-    except ValueError:
-        print("The Data seems to be empty. Please wait for a day for the data to be filled in.")
-        return '```text\nNo Activity tracked this Week\n```'
     for lang in lang_data[:5]:
         if lang['hours'] == 0 and lang['minutes'] == 0:
             continue
-
-        lth = len(lang['name'])
-        text = ""
-        if show_time == 'true':
-            ln_text = len(lang['text'])
-            text = f"{lang['text']}{' '*(TEXT_LENGTH - ln_text)}"
-
         # following line provides a neat finish
-        fmt_percent = format(lang['percent'], '0.2f').zfill(5)
         data_list.append(
-            f"{lang['name']}{' '*(pad + 3 - lth)}{text}{make_graph(lang['percent'], blocks, ln_graph)}   {fmt_percent} % ")
+            f""" "{lang['name']}" : {lang['total_seconds']}""")
     print("Graph Generated")
     data = '\n'.join(data_list)
 
-    return_text = '```text\n'
+    return_text = '```mermaid\n pie\n'
     if show_title == 'true':
         print("Stats with Weeks in Title Generated")
-        return_text += this_week()+'\n\n'
+        return_text += 'title ' + this_week() + '\n'
     if show_total == 'true':
         print("add Total time")
-        return_text += 'Total: ' + total_data+'\n\n'
-    return return_text + data+'\n```'
+        return_text += 'title Total: ' + total_data + '\n'
+    return return_text + data + '\n```'
 
 
 def decode_readme(data: str) -> str:
@@ -123,9 +89,6 @@ if __name__ == '__main__':
     except GithubException:
         print("Authentication Error. Try saving a GitHub Token in your Repo Secrets" +
               " or Use the GitHub Actions Token, which is automatically used by the action.")
-        sys.exit(1)
-    if len(blocks) < 1:
-        print("Invalid string blocks. Please provide string with 2 or more characters. Eg. '░▒▓█'")
         sys.exit(1)
     contents = repo.get_readme()
     waka_stats = get_stats()
