@@ -6,7 +6,9 @@
 
 # Dev Metrics in Readme [![Build Status](https://travis-ci.com/athul/waka-readme.svg?branch=master)](https://travis-ci.com/athul/waka-readme)
 
-![Project Preview](https://user-images.githubusercontent.com/8397274/87243943-e6b45c00-c457-11ea-94c9-2aa0bf241be8.png)
+![image](https://user-images.githubusercontent.com/44257899/154883910-d84bc5be-093a-4a20-a9bd-a1b521cab3d3.png)
+
+
 
 [WakaTime](https://wakatime.com) Weekly Metrics on your Profile Readme:
 
@@ -71,7 +73,7 @@ Please follow the steps below:
        name: Update this repo's README
        runs-on: ubuntu-latest
        steps:
-         - uses: athul/waka-readme@master
+         - uses: liubin95/waka-readme@master
            with:
              WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
    ```
@@ -110,28 +112,12 @@ jobs:
     name: Update Readme with Metrics
     runs-on: ubuntu-latest
     steps:
-      - uses: athul/waka-readme@master
+      - uses: liubin95/waka-readme@master
         with:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           REPOSITORY: <username/username> # optional, By default, it will automatically use the repository which is executing the workflow.
 ```
-
-## Tests
-
-### Running Tests
-
-To run tests simply execute the following in the directory containing `main.py`:
-
-```python
-python -m unittest discover
-```
-
-### Contributing Tests
-
-These tests uses the [python's unit testing framework](https://docs.python.org/3/library/unittest.html).
-
-Since this project is contained all within one file, `main.py`. You can simply add a function to the `TestMain` class in `tests/test_main.py`, similar to the `test_graph` function.
 
 ## Extras
 
@@ -147,15 +133,6 @@ Since this project is contained all within one file, `main.py`. You can simply a
 
    Here is an example output with `SHOW_TITLE` set to `true`.
 
-   ```text
-   Week: 11 July, 2020 - 17 July, 2020
-
-   Python      8 hrs 52 mins       ███████████████████░░░░░░   75.87 %
-   Go          1 hr 15 mins        ██░░░░░░░░░░░░░░░░░░░░░░░   10.79 %
-   Markdown    52 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   07.43 %
-   Docker      16 mins             ░░░░░░░░░░░░░░░░░░░░░░░░░   02.32 %
-   YAML        7 mins              ░░░░░░░░░░░░░░░░░░░░░░░░░   01.07 %
-   ```
 
 2. You can specify a commit message to override the default _"Updated the Graph with new Metrics"_. Here is how you do it
 
@@ -169,24 +146,15 @@ Since this project is contained all within one file, `main.py`. You can simply a
 
    If no commit message is specified in the `yml` file, it defaults to _"Updated the Graph with new Metrics"_
 
-3. You can change the block characters to match with the style of your readme. By default the one show in the graphs before is used. Here is how you do it
-
-   ```yml
-   - uses: athul/waka-readme@master
-           with:
-             WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-             BLOCKS: ⣀⣄⣤⣦⣶⣷⣿
-   ```
-
-   It will change the graph to something like this:
-
-   ```text
-   Python      8 hrs 52 mins       ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣀⣀⣀⣀⣀⣀   75.87 %
-   Go          1 hr 15 mins        ⣿⣿⣦⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀   10.79 %
-   Markdown    52 mins             ⣿⣿⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀   07.43 %
-   Docker      16 mins             ⣤⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀   02.32 %
-   YAML        7 mins              ⣄⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀   01.07 %
-   ```
+3. use mermaid pie
+```mermaid
+ pie
+ "Java" : 13733.025
+ "SQL" : 9739.225
+ "Scratch" : 2791.7
+ "XML" : 2333.897
+ "YAML" : 2298.638
+```
 
 4. As an alternative to official WakaTime, _waka-readme_ also integrates with WakaTime-compatible services like [Wakapi](https://wakapi.dev) and [Hakatime](https://github.com/mujx/hakatime). To use one of these, **adapt the API URL accordingly and use the respective service's API key** instead:
 
@@ -208,14 +176,14 @@ Since this project is contained all within one file, `main.py`. You can simply a
 
    Here is an example output with `SHOW_TIME` set to `false`.
 
-   ```text
-   Week: 11 July, 2020 - 17 July, 2020
-
-   PHP          ████████████████████▒░░░░░░░░░░░░░░░░░░░░   49.98 %
-   Twig         ████▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   11.07 %
-   YAML         ████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   09.77 %
-   JavaScript   ██▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   06.34 %
-   Other        ██▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   05.87 %
+   ```mermaid
+    pie
+    title Week: 11 July, 2020 - 17 July, 2020
+    "Java" : 13733.025
+    "SQL" : 9739.225
+    "Scratch" : 2791.7
+    "XML" : 2333.897
+    "YAML" : 2298.638
    ```
 
 ## Why only the language stats and not other data from the API?
