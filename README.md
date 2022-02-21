@@ -124,7 +124,7 @@ jobs:
 1. If you want to add the week in the Header of your stats, you can add `SHOW_TITLE: true` (by default it will be `false`) in your workflow file like this
 
    ```yml
-   - uses: athul/waka-readme@master
+   - uses: liubin95/waka-readme@master
            with:
              WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
              GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -137,7 +137,7 @@ jobs:
 2. You can specify a commit message to override the default _"Updated the Graph with new Metrics"_. Here is how you do it
 
    ```yml
-   - uses: athul/waka-readme@master
+   - uses: liubin95/waka-readme@master
            with:
              WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
              GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -159,7 +159,7 @@ jobs:
 4. As an alternative to official WakaTime, _waka-readme_ also integrates with WakaTime-compatible services like [Wakapi](https://wakapi.dev) and [Hakatime](https://github.com/mujx/hakatime). To use one of these, **adapt the API URL accordingly and use the respective service's API key** instead:
 
    ```yml
-   - uses: athul/waka-readme@master
+   - uses: liubin95/waka-readme@master
            with:
              WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
              API_BASE_URL: https://wakapi.dev/api
@@ -168,7 +168,7 @@ jobs:
 5. If you do not like to share how much time you spent on each language, you can add `SHOW_TIME: false` (by default it will be `true`) in your workflow file like so:
 
    ```yml
-       - uses: athul/waka-readme@master
+       - uses: liubin95/waka-readme@master
            with:
              WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
              SHOW_TIME: false
