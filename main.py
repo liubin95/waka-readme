@@ -51,12 +51,12 @@ def get_stats() -> str:
         sys.exit(1)
 
     data_list = []
-    for lang in lang_data[:5]:
+    for lang in lang_data:
         if lang['hours'] == 0 and lang['minutes'] == 0:
             continue
         # following line provides a neat finish
         data_list.append(
-            f""" "{lang['name']}" : {lang['total_seconds']}""")
+            f""" "{lang['name']}" : {int(lang['decimal'])}""")
     print("Graph Generated")
     data = '\n'.join(data_list)
 
