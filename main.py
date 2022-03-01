@@ -56,7 +56,7 @@ def get_stats() -> str:
             continue
         # following line provides a neat finish
         data_list.append(
-            f""" "{lang['name']}" : {int(lang['decimal'])}""")
+            f""" "{lang['name']}" : {float(lang['decimal'])}""")
     print("Graph Generated")
     data = '\n'.join(data_list)
 
