@@ -54,6 +54,8 @@ def get_stats() -> str:
     for lang in lang_data:
         if lang['hours'] == 0 and lang['minutes'] == 0:
             continue
+        if lang['name'] == 'Other':
+            continue
         # following line provides a neat finish
         data_list.append(
             f""" "{lang['name']}" : {float(lang['decimal'])}""")
