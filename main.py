@@ -51,7 +51,7 @@ def get_stats() -> str:
         sys.exit(1)
 
     data_list = []
-    for lang in lang_data:
+    for lang in lang_data[:10]:
         if lang['hours'] == 0 and lang['minutes'] == 0:
             continue
         if lang['name'] == 'Other':
