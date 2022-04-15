@@ -2,11 +2,12 @@
 WakaTime progress visualizer
 '''
 
-import re
-import os
 import base64
-import sys
 import datetime
+import os
+import re
+import sys
+
 import requests
 from github import Github, GithubException
 
@@ -55,6 +56,8 @@ def get_stats() -> str:
         if lang['hours'] == 0 and lang['minutes'] == 0:
             continue
         if lang['name'] == 'Other':
+            continue
+        if lang['percent'] < 5:
             continue
         # following line provides a neat finish
         data_list.append(
